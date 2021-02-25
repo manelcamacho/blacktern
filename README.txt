@@ -8,5 +8,5 @@ Howtouse: describes how to prepare
 Data: provides a very brief file with data as an example to use into Blacktern.
 Theory: Gives links to the wave theory used for the calculations.
 Inner-workings: Describes how the code works internally.
-Future work: Describes the steps to implement version 2.0
+Road-map: Describes the steps to implement version from 0.1 to 0.5.
 Aim of the code: Describes what is the purpose fo the code.
