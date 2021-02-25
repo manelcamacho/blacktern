@@ -3,6 +3,7 @@ Black tern 0.1 is an open source program to calculate the values of the wave vel
 Each wave component read from the source text file, will produce an (x,y) output file, the next files explain how this program is used:
 
 Input-output: describes how to enter the wave data and the output we will have.
+Installation: describes the installation process.
 Theory: Gives links to the wave theory used for the calculations.
 Inner-workings: Describes how the code works internally.
 Future work: Describes the steps to implement version 2.0
