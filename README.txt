@@ -4,6 +4,7 @@ Each wave component read from the source text file, will produce an (x,y) output
 
 Input-output: describes how to enter the wave data and the output we will have.
 Installation: describes the installation process.
+Howtouse: describes how to prepare
 Data: provides a very brief file with data as an example to use into Blacktern.
 Theory: Gives links to the wave theory used for the calculations.
 Inner-workings: Describes how the code works internally.
