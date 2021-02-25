@@ -1,8 +1,11 @@
 Future work:
 
  Blacktern is not a completed work, as the version suggest blacktern is a port of programs that
- were written during my PHD to provide tools to calculate wave propierties and wave velocities,
- the next steps to improve and keep building over the already done work are:
+ were written during my PHD to provide tools to calculate wave propierties and wave velocities. 
+ Blacktern components are mostly implemented in diverse individual tools, the aim of Blacktern 
+ is to gather these tools into a functional tool.
+ 
+ The next steps to improve and keep building over the already done work are:
 
  Version 0.2:
 
