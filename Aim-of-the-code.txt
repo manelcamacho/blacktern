@@ -1,0 +1,21 @@
+Aim of the code:
+--------------------------------------------------------------------------------
+Blacktern is a tool to calculate the wave velocity components of any wave field
+once this has been divided into its main components. Blacktern values are an
+approximation of the wave velocities using Airy and Stokes theory.
+
+Blacktern follow three main ideas:
+
++Blacktern is made to be fast as possible, due to this is written in C and tries
+to optimise its code and steps.
+
++Blacktern is made to be portable, languages as python, R, C++ or others can use
+libraries that can make the work easier; however, blacktern objective is to be
+extremely portable. As such Blacktern is written almost in pure C.
+If libraries are added to the project as possible they will use pure C as basis.
+Also it is made thinking on options as rework it to be able to run in tablet,
+cellphones, linux, osx, unix as long they support gcc and the standar C library.
+
++Blacktern could be ported easily, this as long they can
+compile a C standar library program. Black tern will be able to run on a
+Raspberry PI, Mac using an arm processor or any X86-64 processor supporting gcc.
