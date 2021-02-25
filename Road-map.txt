@@ -1,0 +1,23 @@
+Future work:
+
+ Blacktern is not a completed work, as the version suggest blacktern is a port of programs that
+ were written during my PHD to provide tools to calculate wave propierties and wave velocities,
+ the next steps to improve and keep building over the already done work are:
+
+ Version 0.2:
+
+ -Calculation of linear waves in shallow and transitonal deep waters
+ -Use of PTHREADS to improve the speed of the calcuations making use of multicores.
+ -User defined path/name to the file were the wave propierties are stored.
+
+ Version 0.3:
+
+ -Calculation of second order waves.
+ -Algorithm to define if a wave is linear or second order.
+
+ Version 0.4:
+ -Creation of libraries to make the code more functional
+
+Version 0.5:
+-Algorithm to define stepper wave systems of 3rd, 4th and 5th order
+-Calculation of third, 4th and 5th order wave system velocities.
