@@ -1,0 +1,16 @@
+Installation:
+
+Blacktern is a pure C code, due to this the installation process only consists
+only into compile it using gcc. As it has not external libraries the process
+for version 0.1 consists only on downloading the .c code and then executing
+at your terminal:
+
+gcc blacktern.c -o Blacktern
+
+then to run it you just type at the same folder where you compile it
+
+./Blacktern
+
+After compile it you can also just run it by clicking on it. It is also advised
+that the file containing the wave parameters to be calculated should be in the
+same folder as Blacktern in order for Blacktern to run.
