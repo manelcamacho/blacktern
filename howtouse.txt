@@ -1,0 +1,16 @@
+Use:
+
+To use black tern prepare a file called data.txt with the data as:
+
+Amplitude1 Period1 DX1 DZ1 DT1
+Amplitude2 Period2 DX2 DZ2 DT2
+Amplitude3 Period3 DX3 DZ3 DT3
+Amplitude4 Period4 DX4 DZ4 DT4
+.
+.
+.
+AmplitudeN PeriodN DXN DZN DTN
+
+The numbers are the components of the waves from 1 to N, the meaning of DX, DZ
+and DT is explained in the input-output file. Store the file in the same folder
+as Blacktern is.
