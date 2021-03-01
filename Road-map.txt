@@ -18,11 +18,11 @@ Future work:
 
  -Calculation of second order waves.
  -Algorithm to define if a wave is linear or second order, based on an apprximate mapping of the nondimensional wave propierties as functions of f(nd,nh) where 
- nd=non-dimensional deopth and nh= non-dimensional hiegh
+ nd=non-dimensional deopth and nh= non-dimensional hiegh->done but not implemented
 
  Version 0.4:
  -Creation of libraries to make the code more functional
 
 Version 0.5:
--Algorithm to define stepper wave systems of 3rd, 4th and 5th order
+-Algorithm to define stepper wave systems of 3rd, 4th and 5th order->done but not implemented
 -Calculation of third, 4th and 5th order wave system velocities.
