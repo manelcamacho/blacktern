@@ -9,14 +9,16 @@ Future work:
 
  Version 0.2:
 
- -Calculation of linear waves in shallow and transitonal deep waters
- -Use of PTHREADS to improve the speed of the calcuations making use of multicores.
- -User defined path/name to the file were the wave propierties are stored.
+ -Calculation of linear waves in shallow and transitonal deep waters->done
+ -Use of PTHREADS to improve the speed of the calcuations making use of multicores->todo
+ -User defined path/name to the file were the wave propierties are stored->done
+ -Manual on pdf->todo
 
  Version 0.3:
 
  -Calculation of second order waves.
- -Algorithm to define if a wave is linear or second order.
+ -Algorithm to define if a wave is linear or second order, based on an apprximate mapping of the nondimensional wave propierties as functions of f(nd,nh) where 
+ nd=non-dimensional deopth and nh= non-dimensional hiegh
 
  Version 0.4:
  -Creation of libraries to make the code more functional
