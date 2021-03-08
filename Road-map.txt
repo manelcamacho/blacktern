@@ -7,6 +7,10 @@ Future work:
  
  The next steps to improve and keep building over the already done work are:
 
+ Version 0.1
+ -Calculation of linear wave velocities in deep waters->done
+ -Allow user defined file of data->done.
+ 
  Version 0.2:
 
  -Calculation of linear waves in transitonal deep waters->done
