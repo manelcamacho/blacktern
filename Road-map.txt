@@ -22,7 +22,7 @@ Future work:
  Version 0.3:
 
  -Calculation of linear waves in shallow waters->done
- -Use of PTHREADS to improve the speed of the calcuations making use of multicores->done but not implemented
+ -Use of PTHREADS to improve the speed of the calcuations making use of multicores->done but not implemented, autolocation of cores and works of data for several .NIX systems on work.
 
  
  Version 0.4:
