@@ -9,5 +9,5 @@ Theory: Gives links to the wave theory used for the calculations.
 Inner-workings: Describes how the code works internally.
 Road-map: Describes the steps to implement version from 0.1 to 0.5.
 Aim of the code: Describes what is the purpose fo the code.
-Documentation: How to use, how it works, example and possible issues.
+Howto: How to use, how it works, example and possible issues.
 Documentation: Code.
