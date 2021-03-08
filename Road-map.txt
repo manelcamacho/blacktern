@@ -9,20 +9,48 @@ Future work:
 
  Version 0.2:
 
- -Calculation of linear waves in shallow and transitonal deep waters->done
- -Use of PTHREADS to improve the speed of the calcuations making use of multicores->todo
+ -Calculation of linear waves in transitonal deep waters->done
  -User defined path/name to the file were the wave propierties are stored->done
  -Manual on pdf->todo
 
+
  Version 0.3:
 
+ -Calculation of linear waves in shallow waters->done
+ -Use of PTHREADS to improve the speed of the calcuations making use of multicores->todo
+
+ 
+ Version 0.4:
+-Statistical functions to define some characteristcs of the components (pre version)
+-Start basic documentation
+
+
+Version 0.5
  -Calculation of second order waves.
  -Algorithm to define if a wave is linear or second order, based on an apprximate mapping of the nondimensional wave propierties as functions of f(nd,nh) where 
  nd=non-dimensional deopth and nh= non-dimensional hiegh->done but not implemented
 
- Version 0.4:
- -Creation of libraries to make the code more functional
+ Version 0.6:
+ -Disband of libraries to make the code more functional
+ -Expansion of statistical functions to derive information from the 1st and 2nd order swell waves composing the given spectrum
 
-Version 0.5:
+Version 0.7:
 -Algorithm to define stepper wave systems of 3rd, 4th and 5th order->done but not implemented
 -Calculation of third, 4th and 5th order wave system velocities.
+
+Version 0.8:
+-Re-do manual in pdf.
+-Re-made documentation.
+
+Version 0.9
+-Integration simple current models in the water column.
+
+Version 1.0
+-Integration of simple turbulence layer at bottom
+-Re-do manuel in pdf.
+-Re-do documentation.
+-Start parallel GUI* (Not joined with black tern but as an add on)
+
+Release and merge with white crow(wind wave spectra program) 
+
+
