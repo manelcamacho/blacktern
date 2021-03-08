@@ -15,14 +15,14 @@ Future work:
 
  -Calculation of linear waves in transitonal deep waters->done
  -User defined path/name to the file were the wave propierties are stored->done
- -Manual on pdf->todo
- -initial documentation->todo
+ -Manual/How-to->done
+ -initial documentation->in process
 
 
  Version 0.3:
 
  -Calculation of linear waves in shallow waters->done
- -Use of PTHREADS to improve the speed of the calcuations making use of multicores->todo
+ -Use of PTHREADS to improve the speed of the calcuations making use of multicores->done but not implemented
 
  
  Version 0.4:
