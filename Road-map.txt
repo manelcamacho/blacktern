@@ -51,10 +51,10 @@ Version 0.9
 
 Version 1.0
 -Integration of simple turbulence layer at bottom
--Re-do manuel in pdf.
+-Re-do manual in pdf.
 -Re-do documentation.
 -Start parallel GUI* (Not joined with black tern but as an add on)
 
-Release and merge with white crow(wind wave spectra program) 
+Release and start merging with white crow(wind wave spectra program) and grey rabbit (IA interpreting engine) 
 
 
