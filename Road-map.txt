@@ -31,7 +31,7 @@ Future work:
 
 
 Version 0.5
- -Calculation of second order waves.
+ -Calculation of second order waves -> in processes.
  -Algorithm to define if a wave is linear or second order, based on an apprximate mapping of the nondimensional wave propierties as functions of f(nd,nh) where 
  nd=non-dimensional deopth and nh= non-dimensional hiegh->done but not implemented
 
