@@ -30,7 +30,7 @@ arises.
 The possible future:
 
 Blacktern is a tool that the author hopes it evolves as its beign written, 
-however the authors knows that waves are non-linear and that the weak linear
+however the author knows that waves are non-linear and that the weak linear
 theory based on the series expansion is still a representation far from the best.
 Due to this more non-linearities and un-stabilities will be added with time, 
 most of this will be mathematically documented with the proper time to understand 
