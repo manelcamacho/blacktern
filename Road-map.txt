@@ -23,17 +23,20 @@ Future work:
 
  -Calculation of linear waves in shallow waters->done
  -Use of PTHREADS to improve the speed of the calcuations making use of multicores->done but not implemented, autolocation of cores and works of data for several .NIX systems on work.
+ -Testing on BSD/LINUX/OSX.
 
  
  Version 0.4:
 -Statistical functions to define some characteristcs of the components (pre version)
 -Start basic documentation
+-Comparision against linear wave data using other software tools.
 
 
 Version 0.5
  -Calculation of second order waves -> in processes.
  -Algorithm to define if a wave is linear or second order, based on an apprximate mapping of the nondimensional wave propierties as functions of f(nd,nh) where 
  nd=non-dimensional deopth and nh= non-dimensional hiegh->done but not implemented
+ -Comparision against linear wave data using other software tools.
 
  Version 0.6:
  -Disband of libraries to make the code more functional
