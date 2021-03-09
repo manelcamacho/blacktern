@@ -23,7 +23,7 @@ Future work:
 
  -Calculation of linear waves in shallow waters->done
  -Use of PTHREADS to improve the speed of the calcuations making use of multicores->done but not implemented, autolocation of cores and works of data for several .NIX systems on work.
- -Testing compilatin on Linux.
+ -Testing compilatin on Linux (problems with memory functions, now solved but defining the effects of what was found*)
 
  
  Version 0.4:
