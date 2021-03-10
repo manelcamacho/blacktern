@@ -29,8 +29,8 @@ Future work:
  Version 0.4:
 -Statistical functions to define some characteristcs of the components (pre version)
 -Start basic documentation
--Comparision against linear wave data using other software tools.
- -Testing compilatin on BSD.
+-Comparision against linear wave data using other software tools->partially done: deep water waves and transitional water waves.
+ -Testing compilatin on BSD->done
 
 
 Version 0.5
