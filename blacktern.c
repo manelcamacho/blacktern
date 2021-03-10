@@ -340,8 +340,9 @@ int velocitiesxd(float *ampa, float *dx, float *dz, float *dt, float *Twa, float
                     z=0;
                     t=t+(*dt);
             }
-              fclose(fp);
+              fp=NULL;
               in++;
+
 
         return 0;
 }
@@ -410,11 +411,13 @@ int velocitiesxt(float *ampa, float *dx, float *dz, float *dt, float *Twa, float
                     z=0;
                     t=t+(*dt);
             }
-              fclose(fp);
+              fp=NULL;
               in++;
+
 
         return 0;
 
 
 
 }
+
