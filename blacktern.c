@@ -14,7 +14,6 @@ int velocitiesxd(float *ampa, float *dx, float *dz, float *dt, float *Twa, float
 int velocitiesxt(float *ampa, float *dx, float *dz, float *dt, float *Twa, float Lwa, float h, int in);
 
 
-
 float pi=3.14159;
 float conv=1;
 
