@@ -22,7 +22,7 @@ ed Future work:
  Version 0.3:
 
  -Calculation of linear waves in shallow waters->done
- -Use of PTHREADS to improve the speed of the calcuations making use of multicores->done but not implemented, dynamic allocation of cores, memory and arrays has been posponed to version 1.X as this processes will requiere a rewriting of all code and more heavy tools.
+ -(Posponed util version 1.X)Use of PTHREADS to improve the speed of the calcuations making use of multicores->done but not implemented, dynamic allocation of cores, memory and arrays has been posponed to version 1.X as this processes will requiere a rewriting of all code and more heavy tools.
  -Testing compilatin on Linux (problems with memory functions)->done/solved
 
  
