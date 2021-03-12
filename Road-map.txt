@@ -1,4 +1,4 @@
-Future work:
+ed Future work:
 
  Blacktern is not a completed work, as the version suggest blacktern is a port of programs that
  were written during my PHD to provide tools to calculate wave propierties and wave velocities. 
@@ -22,7 +22,7 @@ Future work:
  Version 0.3:
 
  -Calculation of linear waves in shallow waters->done
- -Use of PTHREADS to improve the speed of the calcuations making use of multicores->done but not implemented, autolocation of cores and works of data for several .NIX systems on work.
+ -Use of PTHREADS to improve the speed of the calcuations making use of multicores->done but not implemented, dynamic allocation of cores, memory and arrays has been posponed to version 1.X as this processes will requiere a rewriting of all code and more heavy tools.
  -Testing compilatin on Linux (problems with memory functions)->done/solved
 
  
@@ -61,6 +61,9 @@ Version 1.0
 -Re-do manual in pdf.
 -Re-do documentation.
 -Start parallel GUI* (Not joined with black tern but as an add on)
+
+Pre 1.1
+-REwrite of the code using dynamic memory allocation, core dynamic, dynamic individual data streams.
 
 Release and start merging with white crow(wind wave spectra program) and grey rabbit (IA interpreting engine) 
 
