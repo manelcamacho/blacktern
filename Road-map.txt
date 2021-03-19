@@ -13,7 +13,7 @@ ed Future work:
  
  Version 0.2:
 
- -Calculation of linear waves in transitonal deep waters->done
+ -Calculation of linear waves in transitonal deep waters->done (not implemented as solutions are to small)
  -User defined path/name to the file were the wave propierties are stored->done
  -Manual/How-to->done
  -initial documentation->in process
