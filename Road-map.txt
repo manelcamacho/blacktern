@@ -22,6 +22,7 @@ ed Future work:
  Version 0.3:
 
  -Calculation of linear waves in shallow waters->done
+ -Re-make function to divide linear from 2nd order waves ->done, some problems were found to fit the function that divides the space between Airy and 2nd Order, the boundary where h->0 and H->0 at the limit in h=0.2 ended abrutly then making the waves to calculate wrong their order.  
  -(Posponed util version 1.X)Use of PTHREADS to improve the speed of the calcuations making use of multicores->done but not implemented, dynamic allocation of cores, memory and arrays has been posponed to version 1.X as this processes will requiere a rewriting of all code and more heavy tools.
  -Testing compilatin on Linux (problems with memory functions)->done/solved
 
