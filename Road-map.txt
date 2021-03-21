@@ -24,21 +24,21 @@ ed Future work:
  -Calculation of linear waves in shallow waters->done
  -Re-make function to divide linear from 2nd order waves ->done, some problems were found to fit the function that divides the space between Airy and 2nd Order, the boundary where h->0 and H->0 at the limit in h=0.2 ended abrutly then making the waves to calculate wrong their order.  
  -(Posponed util version 1.X)Use of PTHREADS to improve the speed of the calcuations making use of multicores->done but not implemented, dynamic allocation of cores, memory and arrays has been posponed to version 1.X as this processes will requiere a rewriting of all code and more heavy tools.
- -Testing compilatin on Linux (problems with memory functions)->done/solved
+ -Testing compilation on Linux (problems with memory functions)->done/solved
 
  
  Version 0.4:
--Statistical functions to define some characteristcs of the components (pre version)
--Start basic documentation
--Comparision against linear wave data using other software tools->partially done: deep water waves and transitional water waves.
+-Statistical functions to define some characteristcs of the components (pre version)->gathering informatiion (possible only basic functios)
+-Start basic documentation->in work
+-Comparision against linear wave data using other software tools->partially done: linear deep water waves and transitional water waves.
  -Testing compilation on BSD->done
 
 
 Version 0.5
  -Calculation of second order waves -> done,will go to 0.3.
  -Algorithm to define if a wave is linear or second order, based on an apprximate mapping of the nondimensional wave propierties as functions of f(nd,nh) where 
- nd=non-dimensional deopth and nh= non-dimensional hiegh->done but not implemented-> done, it will go to 0.3
- -Comparision against linear wave data using other software tools on 2nd order model.
+ nd=non-dimensional deopth and nh= non-dimensional hiegh-> done, it will go to 0.3
+ -Comparision against linear wave data using other software tools on 2nd order model-> partially done under transitional water waves at 2nd order.
 
  Version 0.6:
  -Disband of libraries to make the code more functional
