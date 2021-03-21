@@ -31,13 +31,13 @@ ed Future work:
 -Statistical functions to define some characteristcs of the components (pre version)
 -Start basic documentation
 -Comparision against linear wave data using other software tools->partially done: deep water waves and transitional water waves.
- -Testing compilatin on BSD->done
+ -Testing compilation on BSD->done
 
 
 Version 0.5
- -Calculation of second order waves -> in processes.
+ -Calculation of second order waves -> done,will go to 0.3.
  -Algorithm to define if a wave is linear or second order, based on an apprximate mapping of the nondimensional wave propierties as functions of f(nd,nh) where 
- nd=non-dimensional deopth and nh= non-dimensional hiegh->done but not implemented
+ nd=non-dimensional deopth and nh= non-dimensional hiegh->done but not implemented-> done, it will go to 0.3
  -Comparision against linear wave data using other software tools on 2nd order model.
 
  Version 0.6:
