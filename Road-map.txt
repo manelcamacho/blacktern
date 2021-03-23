@@ -35,6 +35,7 @@ ed Future work:
 
 
 Version 0.5
+ -Testin of simple current profiles in the water column->in work.
  -Calculation of second order waves -> done,will go to 0.3.
  -Algorithm to define if a wave is linear or second order, based on an apprximate mapping of the nondimensional wave propierties as functions of f(nd,nh) where 
  nd=non-dimensional deopth and nh= non-dimensional hiegh-> done, it will go to 0.3
@@ -45,7 +46,7 @@ Version 0.5
  -Expansion of statistical functions to derive information from the 1st and 2nd order swell waves composing the given spectrum
 
 Version 0.7:
--Algorithm to define stepper wave systems of 3rd, 4th and 5th order->done but not implemented
+-Algorithm to define stepper wave systems of 3rd, 4th and 5th order->done but not implemented->done using simple apped functions.
 -Calculation of third, 4th and 5th order wave system velocities.
 
 Version 0.8:
