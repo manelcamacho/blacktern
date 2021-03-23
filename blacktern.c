@@ -12,6 +12,9 @@ int read_ints();
 
 int velocitiesxd(float *ampa, float *dx, float *dz, float *dt, float *Twa, float Lwa, float h, int in);
 int velocitiesxt(float *ampa, float *dx, float *dz, float *dt, float *Twa, float Lwa, float h, int in);
+int velocities2xd(float *ampa, float *dx, float *dz, float *dt, float *Twa, float Lwa, float h, int in);
+int velocities2xt(float *ampa, float *dx, float *dz, float *dt, float *Twa, float Lwa, float h, int in);
+
 
 
 float pi=3.14159;
@@ -19,7 +22,7 @@ float conv=1;
 
 int main(int argc, char *argv[])
 {
-float Lwa2=0, g=9.81, a=0, m=0.02615, mt=0, xt=0,yt=0, op=0, dif=0, amp=0, lat=0;
+float Lwa2=0, g=9.81, a=0, m=0.02615, mt=0, xt=0,yt=0, op=0, dif=0, amp=0, lat=0, xdt=0.084, xst=0.00154, x=0, func1=0, func2=0,func3=0,func4=0, func5=0, func6=0;
 int condition=0, i=0, t=0, h=0, Lw=0;
 
 //we read the size of the data file to store infromation on the arrays
@@ -138,59 +141,154 @@ printf("\n" );
 while (i<=t)
 {
   //The non-dimensional parameters to calculate the wave order are calculated
+
   xt=(h/(g*pow(Twa[i],2)));
   yt=(ampa[i]/(g*pow(Twa[i],2)));
-  mt=(yt-.00005)/(xt-.001369);
+  x=xt;
+  //MT GONE mt=(yt-.00005)/(xt-.001369);
 
-//Here we define if our wave is linear or 2nd order
-  if (mt<m||((yt<.001)&&(xt>0.37)))
+  /*Here we set the functions that define each range of te wave theories starting from lineal, second order, and fifth*/
+  /*This is the function that divides the Airy space-second stokes space*/
+  func1=0.0000322962 - (0.00200355 *(pow(x,(0.25)))) + (0.0111283 *pow(x,0.5)) - (0.0136872*x);
+
+  /*This is the function that divides the Kortewegg de Vries space-second stokes and Fifth-Third stokes space*/
+  func2=(0.00124726 - (0.0244293*pow(x,0.25)) + (0.0988321*pow(x,0.5)) - (0.10934*x));
+
+  /*This is the function that divides Fifth-Forth-Third stokes space to breaking waves*/
+  func3=(0.00472213  - (0.0966994*pow(x,0.25)) + (0.390791*pow(x,0.5)) - (0.432903*x));
+
+  /*This is the function that divides the Kortewegg de Vries space from second order and the Stokes-Kortewegg de Vries with 3rd and 4th order*/
+  func4=(-0.0262843 + (0.2938879*pow(x,0.25)) - (0.92127 *pow(x,0.5)) + (2.77775*x));
+
+  /*This is the function that divides the Third-stream-fifth stokes spaces*/
+  func5=(-0.0242947 + (0.114039*pow(x,0.25)) - (0.0975339*pow(x,0.5)) + (0.00202345*x));
+
+  /*This is the function that divides the Third-Forth stokes spaces*/
+  func6=(-0.122536 + (0.608611*pow(x,0.25)) - (0.725805 *pow(x,0.5)) + (0.299734*x));
+
+
+
+
+
+  Lwa2=wavelenght(Twa+i,h,lat);
+  Cwa[i]=typeofwave(Lwa2,h);
+
+  if(xt<0.1){
+
+  /*Here we compare our non dimensional values to confirm if we hace a linear wave*/
+    if(func1>=yt)
     {
-      op=1;
+
+
+        if (xt>xdt) {
+          Lwa2=1.56*pow(Twa[i],2);
+          velocitiesxd(ampa+i, dx+i, dz+i, dt+i, Twa+i, Lwa2, h, i);
+        }
+        else if (xt<=xdt) {
+
+      dif=1;
+      Lwa2=1.56*pow(Twa[i],2);
+      while(dif>0.1)
+      {
+      Lw=1.56*pow(Twa[i],2)*tanh((2*pi*h)/Lwa2);
+      Lwa2=Lw;
+      dif=sqrt(pow(pow(Lw,2)-pow(Lwa2,2),2));
+      }
+      velocitiesxt(ampa+i, dx+i, dz+i, dt+i, Twa+i, Lwa2, h, i);
+
+        }
+        else {
+          printf("No wave recognized\n" );
+        }
+
     }
-    else
+    /*In this part we compare to see if the wave is second order or cnoidal*/
+
+
+    else if (func1<yt&&func2>yt) {
+        /*we compare the slope that divides the cnoidal theory from the second order theory*/
+        if (func4>yt) {
+
+          if ( xt>=xdt)
+          {
+              Lwa2=1.56*pow(Twa[i],2);
+              velocities2xd(ampa+i, dx+i, dz+i, dt+i, Twa+i, Lwa2, h, i);
+            }
+            else if (xt<xdt)
+            {
+              dif=1;
+              Lwa2=1.56*pow(Twa[i],2);
+              while(dif>0.1)
+              {
+              Lw=1.56*pow(Twa[i],2)*tanh((2*pi*h)/Lwa2);
+              Lwa2=Lw;
+              dif=sqrt(pow(pow(Lw,2)-pow(Lwa2,2),2));
+              }
+              velocities2xt(ampa+i, dx+i, dz+i, dt+i, Twa+i, Lwa2, h, i);
+            }
+
+        }
+        else if (func4<=yt) {
+          /* code */printf("The wave is a cnoidal wave\n");
+        }
+
+    }
+
+    /*Here we search for a 5th, 4th or 3rd order wave*/
+    else if (func2<yt&&func3>yt) {
+      /*Here we compare for a 5th order wave*/
+      if (func4<yt){
+        printf("You have a 5th order wave\n" );
+      }
+        /*Here we compare for a 4th or 3rd order wave*/
+      else if (func4>yt) {
+        if (func6>=yt){
+        printf("You have a third order wave \n" );
+        }
+        else if (func6<yt) {
+          printf("You have a fourth order wave\n" );
+        }
+      }
+    }
+      else
+      {
+
+        printf("You have shallow waters waves or breaking conditions\n" );
+      }
+
+    }
+
+    else if(xt>=0.1)
     {
-      op=2;
+      if(yt<0.001)
+      {
+        Lwa2=1.56*pow(Twa[i],2);
+        velocitiesxd(ampa+i, dx+i, dz+i, dt+i, Twa+i, Lwa2, h, i);
+
+      }
+      else if(0.001<=yt&&yt<0.0073)
+      {
+        Lwa2=1.56*pow(Twa[i],2);
+        velocities2xd(ampa+i, dx+i, dz+i, dt+i, Twa+i, Lwa2, h, i);
+      }
+      else if(0.0073<=yt&&yt<0.0088)
+      {
+      /* code */printf("The wave is a 5th order order wave\n");
+      }
+      else if(0.0088<=yt&&yt<0.0198)
+      {
+      /* code */printf("The wave is a 3rd order order wave\n");
+      }
+      else if(0.0198<=yt&&yt<0.0285)
+      {
+      /* code */printf("The wave is a 4th order order wave\n");
+      }
+      else{
+        /* code */printf("breaking wave or not recgnize pattern\n");
+      }
+
     }
 
-Lwa2=wavelenght(Twa+i,h,lat);
-Cwa[i]=typeofwave(Lwa2,h);
-
-
-if (Cwa[i]==1&&op==1)
-
-{
-    //Case for linear deep water waves
-
-    Lwa2=1.56*pow(Twa[i],2);
-    velocitiesxd(ampa+i, dx+i, dz+i, dt+i, Twa+i, Lwa2, h, i);
-
-
-
-}
-else if (Cwa[i]==3&&op==1)
-{
-  dif=1;
-  Lwa2=1.56*pow(Twa[i],2);
-  while(dif>0.1)
-  {
-  Lw=1.56*pow(Twa[i],2)*tanh((2*pi*h)/Lwa2);
-  Lwa2=Lw;
-  dif=sqrt(pow(pow(Lw,2)-pow(Lwa2,2),2));
-  }
-  velocitiesxt(ampa+i, dx+i, dz+i, dt+i, Twa+i, Lwa2, h, i);
-
-}
-
-else if(Cwa[i]==2&&op==1)
-{
-    //Case for linear transitional water waves
-}
-
-else if (op==2)
-{
-  //Case for second order waves
-
-}
 i++;
 op=0;
 }
@@ -265,14 +363,14 @@ int read_ints (void)
   return count;
 }
 
-
+//Here we calculate the linear velocities and deep waters
 int velocitiesxd(float *ampa, float *dx, float *dz, float *dt, float *Twa, float Lwa, float h, int in)
 {
 
   FILE * fp;
 
   char name[FILENAME_MAX];
-    float z=0, x=0, t=0, k=0, tpi=0, a0=0, a1=0, a2=0, arg=0, kons=0, kons2=0, ratio=0, trig=0;
+    float z=0, x=0, t=0, k=0, tpi=0, a0=0, a1=0, a2=0, arg=0, kons=0, kons2=0, ratio=0;
     int lenght=0, i=0, i2=0;
       snprintf(name, sizeof(name), "%d.txt", in);
       fp = fopen(name, "w");
@@ -346,14 +444,14 @@ int velocitiesxd(float *ampa, float *dx, float *dz, float *dt, float *Twa, float
         return 0;
 }
 
-
+//Here we calculate the linear velocities at transitional water
 int velocitiesxt(float *ampa, float *dx, float *dz, float *dt, float *Twa, float Lwa, float h, int in)
 {
 
   FILE * fp;
 
   char name[FILENAME_MAX];
-    float z=0, x=0, t=0, k=0, tpi=0, a0=0, a1=0, a2=0, arg=0, kons=0, kons2=0, ratio=0, trig=0;
+    float z=0, x=0, t=0, k=0, tpi=0, a0=0, a1=0, a2=0, arg=0, kons=0, kons1=0, kons2=0, ratio=0;
     int lenght=0, i=0, i2=0;
       snprintf(name, sizeof(name), "%dt.txt", in);
       fp = fopen(name, "w");
@@ -383,6 +481,7 @@ int velocitiesxt(float *ampa, float *dx, float *dz, float *dt, float *Twa, float
                 while(z<h)
                     {
                       kons=a0*cosh(k*(z-h))/sinh(k*h);
+                      kons1=a0*sinh(k*(z-h))/sinh(k*h);
                       i=0;
                       //We calculate the velocity from the position x=0 to a xn=waves wavelenght
                         while (x<Lwa)
@@ -391,7 +490,7 @@ int velocitiesxt(float *ampa, float *dx, float *dz, float *dt, float *Twa, float
                                     //if the wave field reach the bottom its velocity its calculated
                                     arg=tpi*( -(x/Lwa) +a2 );
                                     arrayx[i]=kons*sin(arg);
-                                    arrayy[i]= kons*cos(arg);
+                                    arrayy[i]=kons1*cos(arg);
 
                                   i++;
                                   x=x+(*dx);
@@ -419,4 +518,181 @@ int velocitiesxt(float *ampa, float *dx, float *dz, float *dt, float *Twa, float
 
 
 }
+
+
+
+//Here w calculate the 2nd order velocities at transitional waters
+int velocities2xt(float *ampa, float *dx, float *dz, float *dt, float *Twa, float Lwa, float h, int in)
+{
+
+  FILE * fp;
+
+  char name[FILENAME_MAX];
+    float z=0, x=0, t=0, k=0, tpi=0, a0=0, a1=0, a2=0, a3=0, arg=0, kons=0, kons1x=0, kons2x=0, kons1y=0, kons2y=0, ratio=0, hk=0;
+    int lenght=0, i=0, i2=0;
+      snprintf(name, sizeof(name), "%d2t.txt", in);
+      fp = fopen(name, "w");
+
+   lenght=Lwa/(*dx);
+   //We initialize the arrays dimensions to store the information on the wave velocities
+    float *arrayx = malloc(lenght * sizeof(*arrayx));
+    if (!arrayx) {
+        printf("There was a problem with malloc.");
+        exit(EXIT_FAILURE);
+    }
+    float *arrayy = malloc(lenght * sizeof(*arrayy));
+    if (!arrayy) {
+        printf("There was a problem with malloc.");
+        exit(EXIT_FAILURE);
+    }
+    //Constants to be used on the functions to calculate the velocities, 2pi, a*w, wave number, depth and wavenumber, cte a at velocities, wavelenght ratio
+    tpi=2*pi;
+    a0=((tpi*(*ampa))/(*Twa));
+    k=(tpi)/Lwa;
+    hk=h*k;
+    a1=(-a0*(1/sinh(hk)))/4;
+    ratio=Lwa/2;
+    a3=*ampa*3*k;
+      //We start to calculate the velocities from t0 to tn=wave period
+        while(t<(*Twa))
+            {
+              a2=(t/(*Twa));
+              //We calculate the velocity from the mean water level z to the depth of propaation h
+                while(z<h)
+                    {
+                      kons=k*(-h+z);
+                      kons1x=cosh(kons);
+                      kons2x=cosh(2*kons);
+                      kons1y=sinh(kons);
+                      kons2y=sinh(2*kons);
+                      i=0;
+                      //We calculate the velocity from the position x=0 to a xn=waves wavelenght
+                        while (x<Lwa)
+                            {
+                                  if (z>ratio)
+                                  {
+                                    //If the wave does not reach the bottom then its velocity field is 0
+                                    arrayx[i]=0;
+                                    arrayy[i]=0;
+
+
+                                  }
+                                else
+                                  {
+
+                                    //if the wave field reach the bottom its velocity its calculated
+                                    arg=tpi*( -(x/Lwa) +a2 );
+                                    arrayx[i]=a1*((4*cos(arg)*kons1x)+(a3*(1/(sinh(hk)*sinh(hk)*sinh(hk)))*cos(2*arg)*kons2x));
+                                    arrayy[i]=a1*((4*sin(arg)*kons1y)+(a3*(1/(sinh(hk)*sinh(hk)*sinh(hk)))*sin(2*arg)*kons2y));
+
+                                  }
+                                  i++;
+                                  x=x+(*dx);
+                                }
+                                while(i2<=i){
+                                  //We store the whole data from the arrays to a file
+                                  fprintf(fp, "%.3f,%.3f\t", arrayx[i2], arrayy[i2]);
+                                  i2++;
+                                }
+                                fprintf(fp, "\n");
+                        i2=0;
+                        x=0;
+                        z=z+(*dz);
+                    }
+                    fprintf(fp, "\n\n");
+                    z=0;
+                    t=t+(*dt);
+            }
+              fp=NULL;
+              in++;
+
+
+        return 0;
+}
+
+//Here we calculate the 2nd order velocities at deep waters
+int velocities2xd(float *ampa, float *dx, float *dz, float *dt, float *Twa, float Lwa, float h, int in)
+{
+
+  FILE * fp;
+
+  char name[FILENAME_MAX];
+    float z=0, x=0, t=0, k=0, tpi=0, a0=0, a1=0, a2=0, arg=0, kons=0, kons1x=0, kons1y=0, ratio=0, hk=0;
+    int lenght=0, i=0, i2=0;
+      snprintf(name, sizeof(name), "%d2.txt", in);
+      fp = fopen(name, "w");
+
+   lenght=Lwa/(*dx);
+   //We initialize the arrays dimensions to store the information on the wave velocities
+    float *arrayx = malloc(lenght * sizeof(*arrayx));
+    if (!arrayx) {
+        printf("There was a problem with malloc.");
+        exit(EXIT_FAILURE);
+    }
+    float *arrayy = malloc(lenght * sizeof(*arrayy));
+    if (!arrayy) {
+        printf("There was a problem with malloc.");
+        exit(EXIT_FAILURE);
+    }
+    //Constants to be used on the functions to calculate the velocities, 2pi, a*w, wave number, depth and wavenumber, cte a at velocities, wavelenght ratio
+    tpi=2*pi;
+    a0=((tpi*(*ampa))/(*Twa));
+    k=(tpi)/Lwa;
+    hk=h*k;
+    a1=-a0*(1/sinh(hk));
+    ratio=Lwa/2;
+      //We start to calculate the velocities from t0 to tn=wave period
+        while(t<(*Twa))
+            {
+              a2=(t/(*Twa));
+              //We calculate the velocity from the mean water level z to the depth of propaation h
+                while(z<h)
+                    {
+                      kons=k*(-h+z);
+                      kons1x=cosh(kons);
+                      kons1y=sinh(kons);
+                      i=0;
+                      //We calculate the velocity from the position x=0 to a xn=waves wavelenght
+                        while (x<Lwa)
+                            {
+                                  if (z>ratio)
+                                  {
+                                    //If the wave does not reach the bottom then its velocity field is 0
+                                    arrayx[i]=0;
+                                    arrayy[i]=0;
+
+
+                                  }
+                                else
+                                  {
+                                    //if the wave field reach the bottom its velocity its calculated
+                                    arg=tpi*( -(x/Lwa) +a2 );
+                                    arrayx[i]=a1*((cos(arg)*kons1x));
+                                    arrayy[i]=a1*((sin(arg)*kons1y));
+
+                                  }
+                                  i++;
+                                  x=x+(*dx);
+                                }
+                                while(i2<=i){
+                                  //We store the whole data from the arrays to a file
+                                  fprintf(fp, "%.3f,%.3f\t", arrayx[i2], arrayy[i2]);
+                                  i2++;
+                                }
+                                fprintf(fp, "\n");
+                        i2=0;
+                        x=0;
+                        z=z+(*dz);
+                    }
+                    fprintf(fp, "\n\n");
+                    z=0;
+                    t=t+(*dt);
+            }
+              fp=NULL;
+              in++;
+
+
+        return 0;
+}
+
 
