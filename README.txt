@@ -1,4 +1,4 @@
-Black tern 0.2 is an open source program to calculate the values of the wave velocity field under linear wave theory, the program uses a .txt file with ordered values to read the main wave properties as the amplitude and period. The program then writes the wave field values into several .txt files. 
+Black tern 0.3 is an open source program to calculate the values of the wave velocity field under linear wave theory and 2nd order stokes wave theory, the program uses a .txt file with ordered values to read the main wave properties as the amplitude and period. The program then writes the wave field values into several .txt files. 
 
 Each wave component read from the source text file, will produce an (x,y) output file, the next files explain how this program is used:
 
