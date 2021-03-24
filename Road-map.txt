@@ -28,7 +28,8 @@ ed Future work:
 
  
  Version 0.4:
--Statistical functions to define some characteristcs of the components (pre version)->gathering informatiion (possible only basic functios)
+-Statistical functions to define some characteristcs of the components (pre version)->gathering information (possible only basic functions)
+-Calculation of power coefficients of each components->on mathematical work as the components have different behaviour depending on the wave forms.
 -Start basic documentation->in work
 -Comparision against linear wave data using other software tools->partially done: linear deep water waves and transitional water waves.
  -Testing compilation on BSD->done
