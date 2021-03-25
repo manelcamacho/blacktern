@@ -5,7 +5,6 @@
 #include<stdlib.h>
 #define BUFSIZE 1000
 
-float typeofwave(float Lw, float h);
 float wavelenght(float *Tw, float h, float lat);
 float planetarylocalgravity(float lat);
 int read_ints();
@@ -14,7 +13,7 @@ int velocitiesxd(float *ampa, float *dx, float *dz, float *dt, float *Twa, float
 int velocitiesxt(float *ampa, float *dx, float *dz, float *dt, float *Twa, float Lwa, float h, int in);
 int velocities2xd(float *ampa, float *dx, float *dz, float *dt, float *Twa, float Lwa, float h, int in);
 int velocities2xt(float *ampa, float *dx, float *dz, float *dt, float *Twa, float Lwa, float h, int in);
-
+int spectral(float *ampa, float *Twa, float Lwa, float h, int in, float lat, float *Cwa);
 
 
 float pi=3.14159;
@@ -167,11 +166,8 @@ while (i<=t)
   func6=(-0.122536 + (0.608611*pow(x,0.25)) - (0.725805 *pow(x,0.5)) + (0.299734*x));
 
 
-
-
-
   Lwa2=wavelenght(Twa+i,h,lat);
-  Cwa[i]=typeofwave(Lwa2,h);
+
 
   if(xt<0.1){
 
@@ -183,6 +179,7 @@ while (i<=t)
         if (xt>xdt) {
           Lwa2=1.56*pow(Twa[i],2);
           velocitiesxd(ampa+i, dx+i, dz+i, dt+i, Twa+i, Lwa2, h, i);
+          Cwa[i]=11;
         }
         else if (xt<=xdt) {
 
@@ -195,10 +192,12 @@ while (i<=t)
       dif=sqrt(pow(pow(Lw,2)-pow(Lwa2,2),2));
       }
       velocitiesxt(ampa+i, dx+i, dz+i, dt+i, Twa+i, Lwa2, h, i);
+      Cwa[i]=12;
 
         }
         else {
           printf("No wave recognized\n" );
+          Cwa[i]=0;
         }
 
     }
@@ -213,6 +212,7 @@ while (i<=t)
           {
               Lwa2=1.56*pow(Twa[i],2);
               velocities2xd(ampa+i, dx+i, dz+i, dt+i, Twa+i, Lwa2, h, i);
+              Cwa[i]=21;
             }
             else if (xt<xdt)
             {
@@ -225,11 +225,13 @@ while (i<=t)
               dif=sqrt(pow(pow(Lw,2)-pow(Lwa2,2),2));
               }
               velocities2xt(ampa+i, dx+i, dz+i, dt+i, Twa+i, Lwa2, h, i);
+              Cwa[i]=22;
             }
 
         }
         else if (func4<=yt) {
           /* code */printf("The wave is a cnoidal wave\n");
+          Cwa[i]=6;
         }
 
     }
@@ -239,14 +241,17 @@ while (i<=t)
       /*Here we compare for a 5th order wave*/
       if (func4<yt){
         printf("You have a 5th order wave\n" );
+        Cwa[i]=5;
       }
         /*Here we compare for a 4th or 3rd order wave*/
       else if (func4>yt) {
         if (func6>=yt){
         printf("You have a third order wave \n" );
+        Cwa[i]=3;
         }
         else if (func6<yt) {
           printf("You have a fourth order wave\n" );
+          Cwa[i]=4;
         }
       }
     }
@@ -254,6 +259,7 @@ while (i<=t)
       {
 
         printf("You have shallow waters waves or breaking conditions\n" );
+        Cwa[i]=0;
       }
 
     }
@@ -264,27 +270,33 @@ while (i<=t)
       {
         Lwa2=1.56*pow(Twa[i],2);
         velocitiesxd(ampa+i, dx+i, dz+i, dt+i, Twa+i, Lwa2, h, i);
+        Cwa[i]=11;
 
       }
       else if(0.001<=yt&&yt<0.0073)
       {
         Lwa2=1.56*pow(Twa[i],2);
         velocities2xd(ampa+i, dx+i, dz+i, dt+i, Twa+i, Lwa2, h, i);
+        Cwa[i]=21;
       }
       else if(0.0073<=yt&&yt<0.0088)
       {
-      /* code */printf("The wave is a 5th order order wave\n");
+        printf("The wave is a 5th order order wave\n");
+        Cwa[i]=5;
       }
       else if(0.0088<=yt&&yt<0.0198)
       {
-      /* code */printf("The wave is a 3rd order order wave\n");
+        printf("The wave is a 3rd order order wave\n");
+        Cwa[i]=3;
       }
       else if(0.0198<=yt&&yt<0.0285)
       {
-      /* code */printf("The wave is a 4th order order wave\n");
+        printf("The wave is a 4th order order wave\n");
+        Cwa[i]=4;
       }
       else{
-        /* code */printf("breaking wave or not recgnize pattern\n");
+        printf("breaking wave or not recgnize pattern\n");
+        Cwa[i]=0;
       }
 
     }
@@ -292,13 +304,86 @@ while (i<=t)
 i++;
 op=0;
 }
+i=0;
 
-
-
+  while(i<t)
+  {
+    Lwa2=wavelenght(Twa+i,h,lat);
+    if(Lwa2>(h/2))
+    {
+      dif=1;
+      Lwa2=1.56*pow(Twa[i],2);
+      while(dif>0.1)
+      {
+        Lw=1.56*pow(Twa[i],2)*tanh((2*pi*h)/Lwa2);
+        Lwa2=Lw;
+        dif=sqrt(pow(pow(Lw,2)-pow(Lwa2,2),2));
+      }
+    }
+    spectral(ampa+i, Twa+i, Lwa2, h, i, lat, Cwa+i);
+    printf("%d\n",i );
+    i++;
+  }
 
 
 return 0;
 }
+
+
+int spectral(float *ampa, float *Twa, float Lwa, float h, int in, float lat, float *Cwa)
+{
+  FILE * fp;
+  char name[FILENAME_MAX];
+    float g=0, power=0, rho=0, depthoint=0, mvvx=0, mvvy=0, a0=0, f=0, k=0;
+      fp = fopen("spectral.txt", "a");
+      if(fp == NULL)
+   {
+      printf("Error could not open or create file!");
+      exit(1);
+   }
+      g=planetarylocalgravity(lat);
+      f=(1/(*Twa));
+      rho=1025;
+      power=((rho*g*g)/(64*pi))*4*(*ampa)*(*ampa)*(*Twa);
+      depthoint=Lwa/2;
+      a0=(*ampa*2*pi)/(*Twa);
+      k=(2*pi)/Lwa;
+      if((*Cwa)==11)
+      {
+        mvvx=a0;
+        mvvy=a0;
+      }
+      else if((*Cwa)==12)
+      {
+        mvvx=a0*(cosh(k*(-h)))/sinh(k*h);
+        mvvy=a0*(sinh(k*(-h)))/sinh(k*h);
+      }
+      else if((*Cwa)==21)
+      {
+        mvvx=fabs((a0*(-1/4)*(1/sinh(k*h)))*((sinh(k*(-h))) + (3*(*ampa)*k*(pow(1/sinh(k*h),3))*(sinh(k*(-h))))));
+        mvvy=fabs((a0*(-1/4)*(1/sinh(k*h)))*((cosh(k*(-h))) + (3*(*ampa)*k*(pow(1/sinh(k*h),3))*(cosh(k*(-h))))));
+
+      }
+      else if((*Cwa)==22)
+      {
+        mvvx=fabs((-a0*cosh(k*(-h))*(1/sinh(k*h))));
+        mvvy=fabs((-a0*sinh(k*(-h))*(1/sinh(k*h))));
+      }
+      else{
+        mvvx=0;
+        mvvy=0;
+      }
+      fprintf(fp, "%.3f,%.3f,%.3f,%.3f,%3f,%3f,%3f \n", *ampa, *Twa,f,power,depthoint,mvvx,mvvy);
+  fp=NULL;
+
+return 0;
+}
+
+
+
+
+
+
 
 float wavelenght(float *Tw, float h, float lat)
 
@@ -311,31 +396,6 @@ float wavelenght(float *Tw, float h, float lat)
     return wavelenghtval;
 
 }
-
-float typeofwave(float Lw, float h)
-
-{
-    float ratio=0, val=0;
-    //Here we define if the wave is propagating in deep, transitional or shallow waters
-    ratio=Lw/h;
-
-    if (ratio<=2)
-    {
-        val=1;
-
-    }
-    else if (ratio>=20)
-    {
-        val=2;
-    }
-    else if (ratio<=20&&ratio>=2)
-    {
-        val=3;
-    }
-
-    return val;
-}
-
 
 float planetarylocalgravity(float lat)
 
@@ -694,5 +754,3 @@ int velocities2xd(float *ampa, float *dx, float *dz, float *dt, float *Twa, floa
 
         return 0;
 }
-
-
