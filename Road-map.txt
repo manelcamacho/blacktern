@@ -42,6 +42,7 @@ Version 0.5
  -Algorithm to define if a wave is linear or second order, based on an apprximate mapping of the nondimensional wave propierties as functions of f(nd,nh) where 
  nd=non-dimensional deopth and nh= non-dimensional hiegh-> done, it will go to 0.3
  -Comparision against linear wave data using other software tools on 2nd order model-> partially done under transitional water waves at 2nd order.
+ -Calculation of the pressure gradient below the water-In work!.
 
  Version 0.6:
  -Disband of libraries to make the code more functional
