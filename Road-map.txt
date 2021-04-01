@@ -28,19 +28,21 @@ ed Future work:
 
  
  Version 0.4:
--Statistical functions to define some characteristcs of the components (pre version)->gathering information (possible only basic functions)
--Calculation of power coefficients of each components->on mathematical work as the components have different behaviour depending on the wave forms.
+-Statistical functions to define some characteristcs of the components (pre version)->gathering information (possible only basic functions), calculation of spectral density by power formula, maximum velocities, frequency component and depth of interaction. Velocities are calculated along the maximums of each theory that fts the waves. The power spectra will be changed at 0.5 as this depends on the density (T/Pressure variant).
+-Calculation of power coefficients of each components->done
 -Start basic documentation->in work
 -Comparision against linear wave data using other software tools->partially done: linear deep water waves and transitional water waves.
  -Testing compilation on BSD->done
 
 
 Version 0.5
+ -Calculationof power density depending on variables that change the water mass->In review as its must suffice that changes are important enought to be taken into account.
  -Testin of simple current profiles in the water column->in work.
  -Calculation of second order waves -> done,will go to 0.3.
  -Algorithm to define if a wave is linear or second order, based on an apprximate mapping of the nondimensional wave propierties as functions of f(nd,nh) where 
  nd=non-dimensional deopth and nh= non-dimensional hiegh-> done, it will go to 0.3
  -Comparision against linear wave data using other software tools on 2nd order model-> partially done under transitional water waves at 2nd order.
+ -Calculation of the pressure gradient below the water-In work!.
 
  Version 0.6:
  -Disband of libraries to make the code more functional

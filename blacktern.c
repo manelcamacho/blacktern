@@ -321,7 +321,6 @@ i=0;
       }
     }
     spectral(ampa+i, Twa+i, Lwa2, h, i, lat, Cwa+i);
-    printf("%d\n",i );
     i++;
   }
 
