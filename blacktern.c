@@ -5,6 +5,7 @@
 #include<stdlib.h>
 #define BUFSIZE 1000
 
+float typeofwave(float Lw, float h);
 float wavelenght(float *Tw, float h, float lat);
 float planetarylocalgravity(float lat);
 int read_ints();
@@ -16,8 +17,10 @@ int velocities2xt(float *ampa, float *dx, float *dz, float *dt, float *Twa, floa
 int spectral(float *ampa, float *Twa, float Lwa, float h, int in, float lat, float *Cwa);
 
 
+
 float pi=3.14159;
 float conv=1;
+float rho=1023.6;
 
 int main(int argc, char *argv[])
 {
@@ -137,14 +140,14 @@ printf("\n" );
 
 
 
-while (i<=t)
+while (i<t)
 {
   //The non-dimensional parameters to calculate the wave order are calculated
 
   xt=(h/(g*pow(Twa[i],2)));
-  yt=(ampa[i]/(g*pow(Twa[i],2)));
+  yt=((2*ampa[i])/(g*pow(Twa[i],2)));
   x=xt;
-  //MT GONE mt=(yt-.00005)/(xt-.001369);
+
 
   /*Here we set the functions that define each range of te wave theories starting from lineal, second order, and fifth*/
   /*This is the function that divides the Airy space-second stokes space*/
@@ -165,9 +168,12 @@ while (i<=t)
   /*This is the function that divides the Third-Forth stokes spaces*/
   func6=(-0.122536 + (0.608611*pow(x,0.25)) - (0.725805 *pow(x,0.5)) + (0.299734*x));
 
+  printf("xt:%f, yt:%f, x%f, y:%f\n", xt, yt, x, func1);
+
+
 
   Lwa2=wavelenght(Twa+i,h,lat);
-
+  Cwa[i]=typeofwave(Lwa2,h);
 
   if(xt<0.1){
 
@@ -184,8 +190,8 @@ while (i<=t)
         else if (xt<=xdt) {
 
       dif=1;
-      Lwa2=1.56*pow(Twa[i],2);
-      while(dif>0.1)
+     Lwa2=1.56*pow(Twa[i],2);
+     while(dif>0.01)
       {
       Lw=1.56*pow(Twa[i],2)*tanh((2*pi*h)/Lwa2);
       Lwa2=Lw;
@@ -197,7 +203,6 @@ while (i<=t)
         }
         else {
           printf("No wave recognized\n" );
-          Cwa[i]=0;
         }
 
     }
@@ -218,7 +223,7 @@ while (i<=t)
             {
               dif=1;
               Lwa2=1.56*pow(Twa[i],2);
-              while(dif>0.1)
+              while(dif>0.01)
               {
               Lw=1.56*pow(Twa[i],2)*tanh((2*pi*h)/Lwa2);
               Lwa2=Lw;
@@ -281,21 +286,21 @@ while (i<=t)
       }
       else if(0.0073<=yt&&yt<0.0088)
       {
-        printf("The wave is a 5th order order wave\n");
-        Cwa[i]=5;
+      /* code */printf("The wave is a 5th order order wave\n");
+      Cwa[i]=5;
       }
       else if(0.0088<=yt&&yt<0.0198)
       {
-        printf("The wave is a 3rd order order wave\n");
-        Cwa[i]=3;
+      /* code */printf("The wave is a 3rd order order wave\n");
+      Cwa[i]=3;
       }
       else if(0.0198<=yt&&yt<0.0285)
       {
-        printf("The wave is a 4th order order wave\n");
-        Cwa[i]=4;
+      /* code */printf("The wave is a 4th order order wave\n");
+      Cwa[i]=4;
       }
       else{
-        printf("breaking wave or not recgnize pattern\n");
+        /* code */printf("breaking wave or not recgnize pattern\n");
         Cwa[i]=0;
       }
 
@@ -304,6 +309,7 @@ while (i<=t)
 i++;
 op=0;
 }
+
 i=0;
 
   while(i<t)
@@ -325,9 +331,10 @@ i=0;
   }
 
 
+
+
 return 0;
 }
-
 
 int spectral(float *ampa, float *Twa, float Lwa, float h, int in, float lat, float *Cwa)
 {
@@ -342,7 +349,6 @@ int spectral(float *ampa, float *Twa, float Lwa, float h, int in, float lat, flo
    }
       g=planetarylocalgravity(lat);
       f=(1/(*Twa));
-      rho=1025;
       power=((rho*g*g)/(64*pi))*4*(*ampa)*(*ampa)*(*Twa);
       depthoint=Lwa/2;
       a0=(*ampa*2*pi)/(*Twa);
@@ -372,17 +378,15 @@ int spectral(float *ampa, float *Twa, float Lwa, float h, int in, float lat, flo
         mvvx=0;
         mvvy=0;
       }
-      fprintf(fp, "%.3f,%.3f,%.3f,%.3f,%3f,%3f,%3f \n", *ampa, *Twa,f,power,depthoint,mvvx,mvvy);
+      if(in==0)
+      {
+        fprintf(fp, "H(m),L(m),T(s),f(Hz),P(W),DI(m),Mvx(m/s),Mvy(m/s)\n");
+      }
+      fprintf(fp, "%.3f,%.3f,%.3f,%.3f,%.3f,%3f,%3f,%3f\n", *ampa, Lwa, *Twa, f, power, depthoint, mvvx, mvvy);
   fp=NULL;
 
 return 0;
 }
-
-
-
-
-
-
 
 float wavelenght(float *Tw, float h, float lat)
 
@@ -395,6 +399,31 @@ float wavelenght(float *Tw, float h, float lat)
     return wavelenghtval;
 
 }
+
+float typeofwave(float Lw, float h)
+
+{
+    float ratio=0, val=0;
+    //Here we define if the wave is propagating in deep, transitional or shallow waters
+    ratio=Lw/h;
+
+    if (ratio<=2)
+    {
+        val=1;
+
+    }
+    else if (ratio>=20)
+    {
+        val=2;
+    }
+    else if (ratio<=20&&ratio>=2)
+    {
+        val=3;
+    }
+
+    return val;
+}
+
 
 float planetarylocalgravity(float lat)
 
@@ -426,13 +455,17 @@ int read_ints (void)
 int velocitiesxd(float *ampa, float *dx, float *dz, float *dt, float *Twa, float Lwa, float h, int in)
 {
 
-  FILE * fp;
+  FILE * fp1, * fp2;
 
-  char name[FILENAME_MAX];
-    float z=0, x=0, t=0, k=0, tpi=0, a0=0, a1=0, a2=0, arg=0, kons=0, kons2=0, ratio=0;
+  char namex[FILENAME_MAX];
+  char namep[FILENAME_MAX];
+    float z=0, x=0, t=0, k=0, tpi=0, a0=0, a1=0, a2=0, arg=0, kons=0, kons2=0, ratio=0, n=0, g=9.8;
     int lenght=0, i=0, i2=0;
-      snprintf(name, sizeof(name), "%d.txt", in);
-      fp = fopen(name, "w");
+    printf("You have a linear deep water wave\n");
+      snprintf(namex, sizeof(namex), "%dx1.txt", in);
+      snprintf(namep, sizeof(namep), "%dp1.txt", in);
+      fp1 = fopen(namex, "w");
+      fp2 = fopen(namep, "w");
 
    lenght=Lwa/(*dx);
    kons2=pi/2;
@@ -447,11 +480,32 @@ int velocitiesxd(float *ampa, float *dx, float *dz, float *dt, float *Twa, float
         printf("There was a problem with malloc.");
         exit(EXIT_FAILURE);
     }
+    float *arrayp = malloc(lenght * sizeof(*arrayp));
+    if (!arrayp) {
+        printf("There was a problem with malloc.");
+        exit(EXIT_FAILURE);
+    }
     //Constants to be used on the functions to calculate the velocities
+    *ampa=*ampa/2;
     tpi=2*pi;
     a0=((tpi*(*ampa))/(*Twa));
     k=(tpi)/Lwa;
     ratio=Lwa/2;
+
+
+    while(x<Lwa){
+      fprintf(fp1, "Vx(%d),Vy(%d),",i,i);
+      fprintf(fp2, "P(%d),", i);
+      i++;
+     x=x+(*dx);
+    }
+    fprintf(fp1, "\n");
+    fprintf(fp2, "\n");
+    x=0;
+    i=0;
+
+
+
       //We start to calculate the velocities from t0 to tn=wave period
         while(t<(*Twa))
             {
@@ -469,6 +523,8 @@ int velocitiesxd(float *ampa, float *dx, float *dz, float *dt, float *Twa, float
                                     //If the wave does not reach the bottom then its velocity field is 0
                                     arrayx[i]=0;
                                     arrayy[i]=0;
+                                    n=rho*g*(z+((*ampa)*sin(arg)));
+                                    arrayp[i]=n;
 
 
                                   }
@@ -477,26 +533,32 @@ int velocitiesxd(float *ampa, float *dx, float *dz, float *dt, float *Twa, float
                                     //if the wave field reach the bottom its velocity its calculated
                                     arg=tpi*( -(x/Lwa) +a2 );
                                     arrayx[i]=kons*sin(arg);
-                                    arrayy[i]= kons*cos(arg);
+                                    arrayy[i]=kons*cos(arg);
+                                    n=rho*g*(z+((*ampa)*sin(arg)));
+                                    arrayp[i]=n;
                                   }
                                   i++;
                                   x=x+(*dx);
                                 }
-                                while(i2<=i){
+                                while(i2<i){
                                   //We store the whole data from the arrays to a file
-                                  fprintf(fp, "%.3f,%.3f\t", arrayx[i2], arrayy[i2]);
+                                  fprintf(fp1, "%.3f,%.3f,",arrayx[i2],arrayy[i2]);
+                                  fprintf(fp2, "%.3f,", arrayp[i2]);
                                   i2++;
                                 }
-                                fprintf(fp, "\n");
+                                fprintf(fp1, "\n");
+                                fprintf(fp2, "\n");
                         i2=0;
                         x=0;
                         z=z+(*dz);
                     }
-                    fprintf(fp, "\n\n");
+                    fprintf(fp1, "\n\n");
+                    fprintf(fp2, "\n\n");
                     z=0;
                     t=t+(*dt);
             }
-              fp=NULL;
+              fp1=NULL;
+              fp2=NULL;
               in++;
 
 
@@ -507,13 +569,17 @@ int velocitiesxd(float *ampa, float *dx, float *dz, float *dt, float *Twa, float
 int velocitiesxt(float *ampa, float *dx, float *dz, float *dt, float *Twa, float Lwa, float h, int in)
 {
 
-  FILE * fp;
+  FILE * fp1, * fp2;
 
-  char name[FILENAME_MAX];
-    float z=0, x=0, t=0, k=0, tpi=0, a0=0, a1=0, a2=0, arg=0, kons=0, kons1=0, kons2=0, ratio=0;
+  char namex[FILENAME_MAX];
+  char namep[FILENAME_MAX];
+    float z=0, x=0, t=0, k=0, tpi=0, a0=0, a1=0, a2=0, arg=0, kons=0, kons1=0, kons2=0, ratio=0, n=0, g=9.81;
     int lenght=0, i=0, i2=0;
-      snprintf(name, sizeof(name), "%dt.txt", in);
-      fp = fopen(name, "w");
+    printf("You have a linear transitional water wave\n");
+      snprintf(namex, sizeof(namex), "%dx1.txt", in);
+      snprintf(namep, sizeof(namep), "%dp1.txt", in);
+      fp1 = fopen(namex, "w");
+      fp2 = fopen(namep, "w");
 
    lenght=Lwa/(*dx);
    kons2=pi/2;
@@ -528,10 +594,30 @@ int velocitiesxt(float *ampa, float *dx, float *dz, float *dt, float *Twa, float
         printf("There was a problem with malloc.");
         exit(EXIT_FAILURE);
     }
+    float *arrayp = malloc(lenght * sizeof(*arrayp));
+    if (!arrayp) {
+        printf("There was a problem with malloc.");
+        exit(EXIT_FAILURE);
+    }
     //Constants to be used on the functions to calculate the velocities
+    *ampa=*ampa/2;
     tpi=2*pi;
     a0=((tpi*(*ampa))/(*Twa));
     k=(tpi)/Lwa;
+
+    while(x<Lwa){
+      fprintf(fp1, "Vx(%d),Vy(%d),",i,i);
+      fprintf(fp2, "P(%d),", i);
+      i++;
+     x=x+(*dx);
+    }
+    fprintf(fp1, "\n");
+    fprintf(fp2, "\n");
+    x=0;
+    i=0;
+
+
+
       //We start to calculate the velocities from t0 to tn=wave period
         while(t<(*Twa))
             {
@@ -550,25 +636,31 @@ int velocitiesxt(float *ampa, float *dx, float *dz, float *dt, float *Twa, float
                                     arg=tpi*( -(x/Lwa) +a2 );
                                     arrayx[i]=kons*sin(arg);
                                     arrayy[i]=kons1*cos(arg);
+                                    n=rho*g*(z+( (*ampa)*sin(arg) ));
+                                    arrayp[i]=n;
 
                                   i++;
                                   x=x+(*dx);
                                 }
-                                while(i2<=i){
+                                while(i2<i){
                                   //We store the whole data from the arrays to a file
-                                  fprintf(fp, "%.3f,%.3f\t", arrayx[i2], arrayy[i2]);
+                                  fprintf(fp1, "%.3f,%.3f,",arrayx[i2],arrayy[i2]);
+                                  fprintf(fp2, "%.3f,", arrayp[i2]);
                                   i2++;
                                 }
-                                fprintf(fp, "\n");
+                                fprintf(fp1, "\n");
+                                fprintf(fp2, "\n");
                         i2=0;
                         x=0;
                         z=z+(*dz);
                     }
-                    fprintf(fp, "\n\n");
+                    fprintf(fp1, "\n\n");
+                    fprintf(fp2, "\n\n");
                     z=0;
                     t=t+(*dt);
             }
-              fp=NULL;
+              fp1=NULL;
+              fp2=NULL;
               in++;
 
 
@@ -584,13 +676,17 @@ int velocitiesxt(float *ampa, float *dx, float *dz, float *dt, float *Twa, float
 int velocities2xt(float *ampa, float *dx, float *dz, float *dt, float *Twa, float Lwa, float h, int in)
 {
 
-  FILE * fp;
+  FILE * fp1, * fp2;
 
-  char name[FILENAME_MAX];
-    float z=0, x=0, t=0, k=0, tpi=0, a0=0, a1=0, a2=0, a3=0, arg=0, kons=0, kons1x=0, kons2x=0, kons1y=0, kons2y=0, ratio=0, hk=0;
+  char namex[FILENAME_MAX];
+  char namep[FILENAME_MAX];
+    float z=0, x=0, t=0, k=0, tpi=0, a0=0, a1=0, a2=0, a3=0, arg=0, kons=0, kons1x=0, kons2x=0, kons1y=0, kons2y=0, ratio=0, hk=0, n=0, g=9.81, nam=0;
     int lenght=0, i=0, i2=0;
-      snprintf(name, sizeof(name), "%d2t.txt", in);
-      fp = fopen(name, "w");
+    printf("You have a 2nd order transitonal wave\n");
+    snprintf(namex, sizeof(namex), "%dx2.txt", in);
+    snprintf(namep, sizeof(namep), "%dp2.txt", in);
+    fp1 = fopen(namex, "w");
+    fp2 = fopen(namep, "w");
 
    lenght=Lwa/(*dx);
    //We initialize the arrays dimensions to store the information on the wave velocities
@@ -604,7 +700,13 @@ int velocities2xt(float *ampa, float *dx, float *dz, float *dt, float *Twa, floa
         printf("There was a problem with malloc.");
         exit(EXIT_FAILURE);
     }
+    float *arrayp = malloc(lenght * sizeof(*arrayp));
+    if (!arrayp) {
+        printf("There was a problem with malloc.");
+        exit(EXIT_FAILURE);
+    }
     //Constants to be used on the functions to calculate the velocities, 2pi, a*w, wave number, depth and wavenumber, cte a at velocities, wavelenght ratio
+    *ampa=*ampa/2;
     tpi=2*pi;
     a0=((tpi*(*ampa))/(*Twa));
     k=(tpi)/Lwa;
@@ -612,6 +714,19 @@ int velocities2xt(float *ampa, float *dx, float *dz, float *dt, float *Twa, floa
     a1=(-a0*(1/sinh(hk)))/4;
     ratio=Lwa/2;
     a3=*ampa*3*k;
+    nam=tanh(hk);
+
+    while(x<Lwa){
+      fprintf(fp1, "Vx(%d),Vy(%d),",i,i);
+      fprintf(fp2, "P(%d),", i);
+      i++;
+     x=x+(*dx);
+    }
+    fprintf(fp1, "\n");
+    fprintf(fp2, "\n");
+    x=0;
+    i=0;
+
       //We start to calculate the velocities from t0 to tn=wave period
         while(t<(*Twa))
             {
@@ -633,6 +748,8 @@ int velocities2xt(float *ampa, float *dx, float *dz, float *dt, float *Twa, floa
                                     //If the wave does not reach the bottom then its velocity field is 0
                                     arrayx[i]=0;
                                     arrayy[i]=0;
+                                    n=(*ampa)*( (cos(arg)+(((k*(*ampa))*((3-pow(nam,2))/(4*pow(nam,3))))*cos(2*arg))));
+                                    arrayp[i]=g*(z+n)*rho;
 
 
                                   }
@@ -641,28 +758,34 @@ int velocities2xt(float *ampa, float *dx, float *dz, float *dt, float *Twa, floa
 
                                     //if the wave field reach the bottom its velocity its calculated
                                     arg=tpi*( -(x/Lwa) +a2 );
-                                    arrayx[i]=a1*((4*cos(arg)*kons1x)+(a3*(1/(sinh(hk)*sinh(hk)*sinh(hk)))*cos(2*arg)*kons2x));
-                                    arrayy[i]=a1*((4*sin(arg)*kons1y)+(a3*(1/(sinh(hk)*sinh(hk)*sinh(hk)))*sin(2*arg)*kons2y));
+                                    arrayx[i]=a1*((4*cos(arg)*kons1x)+(a3*(1/(sinh(hk)*sinh(hk)*sinh(hk)))*cos((2*arg))*kons2x));
+                                    arrayy[i]=a1*((4*sin(arg)*kons1y)+(a3*(1/(sinh(hk)*sinh(hk)*sinh(hk)))*sin((2*arg))*kons2y));
+                                    n=(*ampa)*( (cos(arg)+(((k*(*ampa))*((3-pow(nam,2))/(4*pow(nam,3))))*cos( (2*arg) ))));
+                                    arrayp[i]=g*(z+n)*rho;
 
                                   }
                                   i++;
                                   x=x+(*dx);
                                 }
-                                while(i2<=i){
+                                while(i2<i){
                                   //We store the whole data from the arrays to a file
-                                  fprintf(fp, "%.3f,%.3f\t", arrayx[i2], arrayy[i2]);
+                                  fprintf(fp1, "%.3f,%.3f,",arrayx[i2],arrayy[i2]);
+                                  fprintf(fp2, "%.3f,", arrayp[i2]);
                                   i2++;
                                 }
-                                fprintf(fp, "\n");
+                                fprintf(fp1, "\n");
+                                fprintf(fp2, "\n");
                         i2=0;
                         x=0;
                         z=z+(*dz);
                     }
-                    fprintf(fp, "\n\n");
+                    fprintf(fp1, "\n\n");
+                    fprintf(fp2, "\n\n");
                     z=0;
                     t=t+(*dt);
             }
-              fp=NULL;
+              fp1=NULL;
+              fp2=NULL;
               in++;
 
 
@@ -673,13 +796,17 @@ int velocities2xt(float *ampa, float *dx, float *dz, float *dt, float *Twa, floa
 int velocities2xd(float *ampa, float *dx, float *dz, float *dt, float *Twa, float Lwa, float h, int in)
 {
 
-  FILE * fp;
+  FILE * fp1, * fp2;
 
-  char name[FILENAME_MAX];
-    float z=0, x=0, t=0, k=0, tpi=0, a0=0, a1=0, a2=0, arg=0, kons=0, kons1x=0, kons1y=0, ratio=0, hk=0;
-    int lenght=0, i=0, i2=0;
-      snprintf(name, sizeof(name), "%d2.txt", in);
-      fp = fopen(name, "w");
+  char namex[FILENAME_MAX];
+  char namep[FILENAME_MAX];
+    float z=0, x=0, t=0, k=0, tpi=0, a0=0, a1=0, a2=0, arg=0, kons=0, kons1x=0, kons1y=0, ratio=0, hk=0, nam=0, g=9.81;
+    int lenght=0, i=0, i2=0, n=0;
+    printf("You have a 2nd order depp water wave\n");
+    snprintf(namex, sizeof(namex), "%dx2.txt", in);
+    snprintf(namep, sizeof(namep), "%dp2.txt", in);
+    fp1 = fopen(namex, "w");
+    fp2 = fopen(namep, "w");
 
    lenght=Lwa/(*dx);
    //We initialize the arrays dimensions to store the information on the wave velocities
@@ -693,13 +820,32 @@ int velocities2xd(float *ampa, float *dx, float *dz, float *dt, float *Twa, floa
         printf("There was a problem with malloc.");
         exit(EXIT_FAILURE);
     }
+    float *arrayp = malloc(lenght * sizeof(*arrayp));
+    if (!arrayp) {
+        printf("There was a problem with malloc.");
+        exit(EXIT_FAILURE);
+    }
     //Constants to be used on the functions to calculate the velocities, 2pi, a*w, wave number, depth and wavenumber, cte a at velocities, wavelenght ratio
+    *ampa=*ampa/2;
     tpi=2*pi;
     a0=((tpi*(*ampa))/(*Twa));
     k=(tpi)/Lwa;
     hk=h*k;
     a1=-a0*(1/sinh(hk));
     ratio=Lwa/2;
+    nam=tanh(hk);
+
+    while(x<Lwa){
+      fprintf(fp1, "Vx(%d),Vy(%d),",i,i);
+      fprintf(fp2, "P(%d),", i);
+      i++;
+     x=x+(*dx);
+    }
+    fprintf(fp1, "\n");
+    fprintf(fp2, "\n");
+    x=0;
+    i=0;
+
       //We start to calculate the velocities from t0 to tn=wave period
         while(t<(*Twa))
             {
@@ -719,6 +865,8 @@ int velocities2xd(float *ampa, float *dx, float *dz, float *dt, float *Twa, floa
                                     //If the wave does not reach the bottom then its velocity field is 0
                                     arrayx[i]=0;
                                     arrayy[i]=0;
+                                    n=(*ampa)*( (cos(arg)+(((k*(*ampa))*((3-pow(nam,2))/(4*pow(nam,3))))*cos( (2*arg) ))));
+                                    arrayp[i]=g*(z+n)*rho;
 
 
                                   }
@@ -728,26 +876,32 @@ int velocities2xd(float *ampa, float *dx, float *dz, float *dt, float *Twa, floa
                                     arg=tpi*( -(x/Lwa) +a2 );
                                     arrayx[i]=a1*((cos(arg)*kons1x));
                                     arrayy[i]=a1*((sin(arg)*kons1y));
+                                    n=(*ampa)*( (cos(arg)+(((k*(*ampa))*((3-pow(nam,2))/(4*pow(nam,3))))*cos( (2*arg) ))));
+                                    arrayp[i]=g*(z+n)*rho;
 
                                   }
                                   i++;
                                   x=x+(*dx);
                                 }
-                                while(i2<=i){
+                                while(i2<i){
                                   //We store the whole data from the arrays to a file
-                                  fprintf(fp, "%.3f,%.3f\t", arrayx[i2], arrayy[i2]);
+                                  fprintf(fp1, "%.3f,%.3f,",arrayx[i2],arrayy[i2]);
+                                  fprintf(fp2, "%.3f,", arrayp[i2]);
                                   i2++;
                                 }
-                                fprintf(fp, "\n");
+                                fprintf(fp1, "\n");
+                                fprintf(fp2, "\n");
                         i2=0;
                         x=0;
                         z=z+(*dz);
                     }
-                    fprintf(fp, "\n\n");
+                    fprintf(fp1, "\n\n");
+                    fprintf(fp2, "\n\n");
                     z=0;
                     t=t+(*dt);
             }
-              fp=NULL;
+              fp1=NULL;
+              fp2=NULL;
               in++;
 
 
