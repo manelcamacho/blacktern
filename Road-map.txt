@@ -36,13 +36,14 @@ ed Future work:
 
 
 Version 0.5
- -Calculationof power density depending on variables that change the water mass->In review as its must suffice that changes are important enought to be taken into account.
- -Testin of simple current profiles in the water column->in work.
+ -Calculation of power density depending on variables that change the water mass->In review as its must suffice that changes are important enought to be taken into account, done it is already on the spectral file produced.
+ -Testing of simple current profiles in the water column->in work, will be added to 0.6.
  -Calculation of second order waves -> done,will go to 0.3.
  -Algorithm to define if a wave is linear or second order, based on an apprximate mapping of the nondimensional wave propierties as functions of f(nd,nh) where 
- nd=non-dimensional deopth and nh= non-dimensional hiegh-> done, it will go to 0.3
- -Comparision against linear wave data using other software tools on 2nd order model-> partially done under transitional water waves at 2nd order.
- -Calculation of the pressure gradient below the water-In work!.
+ nd=non-dimensional deopth and nh= non-dimensional height-> done, it will go to 0.3
+ -Comparision against linear wave data using other software tools on 2nd order model-> partially done under transitional water waves at 2nd order, in process to complete.
+ -Calculation of the pressure gradient below the water-In work, done it is currently implemented into 0.5!.
+ -Calculation of spectral data as frequency, power and maximum induced velocities per spectra->done!.
 
  Version 0.6:
  -Disband of libraries to make the code more functional
