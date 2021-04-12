@@ -46,8 +46,18 @@ Version 0.5
  -Calculation of spectral data as frequency, power and maximum induced velocities per spectra->done!.
 
  Version 0.6:
- -Disband of libraries to make the code more functional
- -Expansion of statistical functions to derive information from the 1st and 2nd order swell waves composing the given spectrum
+ -Disband of libraries to make the code more functional->done.
+ -Expansion of statistical functions to derive information from the 1st and 2nd order swell waves composing the given spectrum-->done.
+ 
+ Version 0.6a:
+ -Review for errors and comparision against other tools->in the making!.
+  Version 0.6b:
+  -Influence of physical-chemical gardients in the column.
+  Version 0.6c:
+  -Added functions and more optimization of the code speed.
+  
+ 
+ 
 
 Version 0.7:
 -Algorithm to define stepper wave systems of 3rd, 4th and 5th order->done but not implemented->done using simple apped functions.
