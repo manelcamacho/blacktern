@@ -52,7 +52,7 @@ Version 0.5
  Version 0.6a:
  -Review for errors and comparision against other tools->in the making!.
   Version 0.6b:
-  -Influence of physical-chemical gardients in the column.
+  -Influence of physical-chemical gradients in the column.
   Version 0.6c:
   -Added functions and more optimization of the code speed.
   
