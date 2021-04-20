@@ -50,11 +50,11 @@ Version 0.5
  -Expansion of statistical functions to derive information from the 1st and 2nd order swell waves composing the given spectrum-->done.
  
  Version 0.6a:
- -Review for errors and comparision against other tools->in the making!.
+ -Review for errors and comparision against other tools->in the making!->done!.
   Version 0.6b:
   -Influence of physical-chemical gradients in the column.
   Version 0.6c:
-  -Added functions and more optimization of the code speed.
+  -divide iteration processes into single functions and more optimization of the code speed.
   
  
  
