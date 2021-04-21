@@ -1,4 +1,4 @@
-Black tern 0.6a (BKT0_6) is an open source program to calculate the values of the wave velocity field under linear wave theory and 2nd order stokes wave theory, the program uses a .txt file with ordered values to read the main wave properties as the amplitude and period. The program then writes the wave field values into several .txt files. The program will produce the ourput of the velocity components along the water column as also a separate file that contains some data as amplitude, period, frequency, average power per square meter, depth of interaction and the maximum velocities that the waves will induce in the water column.
+Black tern 0.6b (BKT0_6) is an open source program to calculate the values of the wave velocity field under linear wave theory and 2nd order stokes wave theory, the program uses a .txt file with ordered values to read the main wave properties as the amplitude and period. The program then writes the wave field values into several .txt files. The program will produce the ourput of the velocity components along the water column as also a separate file that contains some data as amplitude, period, frequency, average power per square meter, depth of interaction and the maximum velocities that the waves will induce in the water column.
 
 Each wave component read from the source text file, will produce an (x,y) output file and one final spectral file with some ofthe wave component propierties given the wave hieght that has been used; the next files explain how this program is used:
 
@@ -8,6 +8,7 @@ Data: provides a very brief file with data as an example to use into Blacktern.
 Theory: Gives links to the wave theory used for the calculations.
 Inner-workings: Describes how the code works internally.
 Road-map: Describes the steps to implement version from 0.1 to 1.1.
+Future-map: explore multidirectionality, gravitation interaction, multilayer velocity profiles, scale of turbulence (kolmogorov), vertical fluxes, 3D mapping. 
 Aim of the code: Describes what is the purpose fo the code.
 Howto: How to use, how it works, example and possible issues.
 Documentation: Code.
