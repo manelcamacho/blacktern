@@ -52,7 +52,7 @@ Version 0.5
  Version 0.6a:
  -Review for errors and comparision against other tools->in the making!->done!.
   Version 0.6b:
-  -Influence of physical-chemical gradients in the column!, in the making! (revision of the influence of density on gradient values*).
+  -Influence of physical-chemical gradients in the column!-> in the making! (revision of the influence of density on gradient values*)->done it!(physical values of density affect the pressure gradient by at least 2-3% of its original, still as the code is fast the function is keep. Isothermal lines in the water column do not see its value afceted due to the mixing of waves and their process to move the heat around the first 1/3 of 500m of water column)
   Version 0.6c:
   -divide iteration processes into single functions and more optimization of the code speed.
   
