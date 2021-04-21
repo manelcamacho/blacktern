@@ -60,7 +60,7 @@ Version 0.5
  
 
 Version 0.7:
--Algorithm to define stepper wave systems of 3rd, 4th and 5th order->done but not implemented->done using simple apped functions.
+-Algorithm to define stepper wave systems of 3rd, 4th and 5th order->done but not implemented->done using simple mapped functions from its values to the non-dimensional space that defines the wave theory (as suggested by Le Mauthe).
 -Calculation of third, 4th and 5th order wave system velocities.
 
 Version 0.8:
