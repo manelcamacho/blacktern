@@ -1,7 +1,8 @@
 Black tern 0.6b (BKT0_6) is an open source program to calculate the values of the wave velocity field under linear wave theory and 2nd order stokes wave theory, the program uses a .txt file with ordered values to read the main wave properties as the amplitude and period. The program then writes the wave field values into several .txt files. The program will produce the ourput of the velocity components along the water column as also a separate file that contains some data as amplitude, period, frequency, average power per square meter, depth of interaction and the maximum velocities that the waves will induce in the water column.
 
-Each wave component read from the source text file, will produce an (x,y) output file and one final spectral file with some ofthe wave component propierties given the wave hieght that has been used; the next files explain how this program is used:
+Each wave component read from the source text file, will produce an (x,y) output file and one final spectral file with some ofthe wave component propierties given the wave hieght that has been used; the next files explain how this program is used, its aim, the more probable road map and other useful stuff.
 
+USE: describes broadly its use, installation, how to run the program and how to read the outut as also some plots that can be obtained with using this interfacing with other software.
 Input-output: describes how to enter the wave data and the output we will have.
 Installation: describes the installation process.
 Data: provides a very brief file with data as an example to use into Blacktern.
