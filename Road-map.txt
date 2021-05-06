@@ -63,7 +63,7 @@ Version 0.7:
 -Algorithm to define stepper wave systems of 3rd, 4th and 5th order->done but not implemented->done using simple mapped functions from its values to the non-dimensional space that defines the wave theory (as suggested by Le Mauthe).
 
 Version 0.7a:
--Calculation of third order wave velocities and pressure gradient.
+-Calculation of third order wave velocities and pressure gradient.-> calculated at deep water at hd->inf not implemented yet, no neccesity of convergence so far <3!
 Version 0.7b:
 -Calculation of 4th order wave velocities and pressure gradient.
 Version 0.7c:
