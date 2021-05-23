@@ -71,11 +71,15 @@ Version 0.7c:
 -Calculation of 5th order wave velocities and pressure gradient.
 Analisys of the 5th order wave model, in the making, analisys of the order of the terms for every depth range-> in the making!
 
-Version 0.8:
+Version 0.8a: Cnoidal wave model!
+
+Version0.8b:
 -Fitting techniques to calculate the wave profile velocity.
 -Re optimization of the compile process and review of it to gain more speed.
 -Re-do manual in pdf.
 -Re-made documentation.
+
+
 
 Version 0.9
 -Integration simple current models in the water column.
