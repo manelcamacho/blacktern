@@ -63,11 +63,13 @@ Version 0.7:
 -Algorithm to define stepper wave systems of 3rd, 4th and 5th order->done but not implemented->done using simple mapped functions from its values to the non-dimensional space that defines the wave theory (as suggested by Le Mauthe).
 
 Version 0.7a:
--Calculation of third order wave velocities and pressure gradient.-> calculated at deep water at hd->inf not implemented yet, no neccesity of convergence so far <3!. Third order all in transitional waters with asymptotic corrections to eliminate terms tested working so far, new calculations and libraries for the dispersion relationships in the making, comparin results to analytic expressions in the making!. Dispersion relationships tested and working, adding 3rd order with its dispersion relationship->In the making!. closing ppointers and collecting memory leaks->done!. Verifying 1st, 2nd and 3rd order models and deep and transitional depp waters->In he making!. Vetifying procesisng speed of components-In the making!.
+-Calculation of third order wave velocities and pressure gradient.-> calculated at deep water at hd->inf not implemented yet, no neccesity of convergence so far <3!. Third order all in transitional waters with asymptotic corrections to eliminate terms tested working so far, new calculations and libraries for the dispersion relationships in the making, comparin results to analytic expressions in the making!. Dispersion relationships tested and working, adding 3rd order with its dispersion relationship->In the making!. closing ppointers and collecting memory leaks->done!. Verifying 1st, 2nd and 3rd order models and deep and transitional depp waters->In he making!. Vetifying procesisng speed of components-In the making!. Verification of results up to 3rd order, done in deep to transtional waters!. 
 Version 0.7b:
 -Calculation of 4th order wave velocities and pressure gradient.
+Analisys of the 4th order wave model, in the making, analisys of the order of the terms for every depth range-> in the making!
 Version 0.7c:
 -Calculation of 5th order wave velocities and pressure gradient.
+Analisys of the 5th order wave model, in the making, analisys of the order of the terms for every depth range-> in the making!
 
 Version 0.8:
 -Fitting techniques to calculate the wave profile velocity.
