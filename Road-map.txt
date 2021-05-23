@@ -71,7 +71,10 @@ Version 0.7c:
 -Calculation of 5th order wave velocities and pressure gradient.
 Analisys of the 5th order wave model, in the making, analisys of the order of the terms for every depth range-> in the making!
 
-Version 0.8a: Cnoidal wave model!
+Version 0.8a: 
+-Cnoidal wave model!
+-Test and adittion of the stream data from buoy systems, using the NOAA averaging method and buoy characteristics.
+-Tools to simulate the data streams mimicking the live systems using a USB controller.
 
 Version0.8b:
 -Fitting techniques to calculate the wave profile velocity.
