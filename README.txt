@@ -2,14 +2,4 @@ Black tern 0.7c (BKT0_6) is an open source program to calculate the values of th
 
 Each wave component read from the source text file, will produce an (x,y) output file and one final spectral file with some ofthe wave component propierties given the wave hieght that has been used; the next files explain how this program is used, its aim, the more probable road map and other useful stuff.
 
-USE: describes broadly its use, installation, how to run the program and how to read the outut as also some plots that can be obtained with using this interfacing with other software.
-Input-output: describes how to enter the wave data and the output we will have.
-Installation: describes the installation process.
-Data: provides a very brief file with data as an example to use into Blacktern.
-Theory: Gives links to the wave theory used for the calculations.
-Inner-workings: Describes how the code works internally.
-Road-map: Describes the steps to implement version from 0.1 to 1.1.
-Future-map: explore multidirectionality, gravitation interaction, multilayer velocity profiles, scale of turbulence (kolmogorov), vertical fluxes, 3D mapping. 
-Aim of the code: Describes what is the purpose fo the code.
-Howto: How to use, how it works, example and possible issues.
-Documentation: Code.
+The process of use, installation and general description of the program along with its GPl license and example data y located at the .zip file in BKT0_7c.zip, to know more just read the README.txt file that is located at the same zip file.
